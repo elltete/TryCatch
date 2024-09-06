@@ -1,0 +1,11 @@
+{
+  "name": "trycatch",
+  "version": "1.0.0",
+  "description": "Using Try Catch",
+  "main": "index.js",
+  "type": "module",
+
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
