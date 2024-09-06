@@ -90,8 +90,33 @@ const addMovie = (args) => {
 
 const updateMovie = (args) => {
   try {
+    if (args.length != 8) {
+      throw new Error("INVALID ARGUMENTS in UPDATEMOVIE");
+    }
 
-    
+    const dataMovies = getMovies();
+
+    const existsMovie = dataMovies.find((movie) => movie.id === args[1]);
+
+    if(!existsMovie) {
+      throw new Error("DOESN'T EXISTS MOVIE TITLE IN DATAMOVIES");
+    }
+
+    existsMovie.title = args[2].toUpperCase();
+    existsMovie.genre = args[3].toUpperCase();
+    existsMovie.director = args[4].toUpperCase();
+    existsMovie.releaseDate = args[5];
+    existsMovie.rating = Number(args[6]);
+    existsMovie.isFeatured = args[7].toUpperCase();
+
+    writeFileSync(_DATA_MOVIES, JSON.stringify(dataMovies));
+
+    errorLogger(new Error("MOVIE UPDATED"), _LOG_FILE);
+
+    return {
+        id: existsMovie.id,
+        name: existsMovie.title,
+    };
 
   } catch (error) {
     errorLogger(error, _LOG_FILE);
@@ -99,10 +124,30 @@ const updateMovie = (args) => {
   }
 };
 
-const deleteMovie = () => {
+const deleteMovie = (id) => {
+
+console.log(id)
+
   try {
+    if (!id) {
+      throw new Error("INVALID ARGUMENTS in DELETEMOVIE");
+    }
 
+    const dataMovies = getMovies();
 
+    const existsMovie = dataMovies.find((movie) => movie.id === id);
+
+    if(!existsMovie) {
+      throw new Error("ID MOVIE NOT EXISTS IN DATAMOVIES");
+    }
+
+    const newMovies = dataMovies.filter((movie) => movie.id !== id);
+
+    writeFileSync(_DATA_MOVIES, JSON.stringify(newMovies));
+
+    errorLogger(new Error("MOVIE DELETED"), _LOG_FILE);
+
+    return existsMovie; 
 
   } catch (error) {
     errorLogger(error, _LOG_FILE);
