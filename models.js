@@ -28,12 +28,12 @@ const getMovies = () => {
 const getMovieById = (id) => {
   try {
     if (!id) {
-      throw new Error("ID MISSING IN GETMOVIEBYID");
+      throw new Error("ID IS MISSING IN GETMOVIEBYID");
     }
 
     const dataMovies = getMovies();
 
-    const foundMovie = dataMovies.find((movie) => movie.id == id);
+    const foundMovie = dataMovies.find((movie) => movie.id === id);
 
     if (!foundMovie) {
       throw new Error("MOVIE ID NOT FOUND");
@@ -95,6 +95,8 @@ const updateMovie = (args) => {
     }
 
     const dataMovies = getMovies();
+
+    //const existsMovie = getMovieById(id);
 
     const existsMovie = dataMovies.find((movie) => movie.id === args[1]);
 
