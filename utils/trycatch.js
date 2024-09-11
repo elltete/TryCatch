@@ -26,8 +26,6 @@ if(resultado instanceof Error){
 }
 
 
-
-
 class Perro {
     "name" = "Pepe";
 }
